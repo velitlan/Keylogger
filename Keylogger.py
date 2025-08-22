@@ -11,7 +11,6 @@ log_file = "keylog.txt"
 shift_pressed = False
 
 def is_capslock_on():
-    # Windows API call to get Caps Lock state
     return ctypes.WinDLL("User32.dll").GetKeyState(0x14) & 0xffff != 0
 
 def on_press(key):
@@ -77,5 +76,6 @@ status_label = tk.Label(frame, text="Status: Idle", anchor="center")
 start_btn.grid(row=0, column=0, padx=5, pady=5)
 stop_btn.grid(row=0, column=1, padx=5, pady=5)
 status_label.grid(row=1, column=0, columnspan=2, pady=10)
+
 
 root.mainloop()
